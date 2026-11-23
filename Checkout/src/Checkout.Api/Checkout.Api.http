@@ -26,5 +26,17 @@ POST {{host}}/orders/{{pendingOrder}}/pay
 ### Paying it again fails with 400
 POST {{host}}/orders/{{pendingOrder}}/pay
 
+### Seeded shipment of the paid order, by number
+GET {{host}}/shipments/by-number/SHP-100001
+
+### Unknown shipment number -> 404
+GET {{host}}/shipments/by-number/SHP-999999
+
+### Malformed shipment number -> 400
+GET {{host}}/shipments/by-number/12345
+
+### Seeded shipment, by id
+GET {{host}}/shipments/e1000000-0000-0000-0000-000000000001
+
 ### Start a fresh cart
 POST {{host}}/carts

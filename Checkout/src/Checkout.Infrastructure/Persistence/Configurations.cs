@@ -1,5 +1,6 @@
 using Checkout.Domain.Carts;
 using Checkout.Domain.Orders;
+using Checkout.Domain.Shipments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -46,5 +47,21 @@ internal sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Navigation(o => o.Items).HasField("_items");
 
         builder.HasData(SeedData.Orders);
+    }
+}
+
+internal sealed class ShipmentConfiguration : IEntityTypeConfiguration<Shipment>
+{
+    public void Configure(EntityTypeBuilder<Shipment> builder)
+    {
+        builder.HasKey(s => s.Id);
+        builder.Property(s => s.Number).HasMaxLength(20).IsRequired();
+        builder.HasIndex(s => s.Number).IsUnique();
+        builder.Property(s => s.Carrier).HasMaxLength(100).IsRequired();
+
+        // References the Order aggregate by id only (no navigation), like Order → Cart.
+        builder.HasOne<Order>().WithMany().HasForeignKey(s => s.OrderId);
+
+        builder.HasData(SeedData.Shipments);
     }
 }

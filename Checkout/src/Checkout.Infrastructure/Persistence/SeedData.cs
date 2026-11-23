@@ -54,4 +54,12 @@ internal static class SeedData
 
         new { OrderId = PendingOrder, ProductId = CoffeeMaker, ProductName = "Coffee Maker", UnitPrice = 279.00m, Quantity = 1 }
     ];
+
+    // The paid order has been handed to a carrier.
+    public static readonly Guid PaidOrderShipment = Guid.Parse("e1000000-0000-0000-0000-000000000001");
+
+    public static readonly object[] Shipments =
+    [
+        new { Id = PaidOrderShipment, Number = "SHP-100001", OrderId = PaidOrder, Carrier = "Correios", CreatedAtUtc = new DateTime(2026, 11, 18, 15, 0, 0, DateTimeKind.Utc) }
+    ];
 }

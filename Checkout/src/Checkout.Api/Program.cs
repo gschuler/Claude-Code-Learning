@@ -26,6 +26,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapCartEndpoints();
 app.MapOrderEndpoints();
+app.MapShipmentEndpoints();
 
 app.Run();
 

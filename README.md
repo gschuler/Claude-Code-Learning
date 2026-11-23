@@ -36,6 +36,7 @@ Dependencies point inward: `Api → Application + Infrastructure`, `Infrastructu
 - `POST /carts/{id}/items` · `DELETE /carts/{id}/items/{productId}`
 - `POST /carts/{id}/checkout` → creates an order
 - `GET /orders/{id}` · `POST /orders/{id}/pay` · `POST /orders/{id}/cancel`
+- `GET /shipments/{id}` · `GET /shipments/by-number/{number}` (format `SHP-000000`, case-insensitive)
 
 Business-rule errors return `400`, missing resources `404`, both as ProblemDetails JSON. Each Api project has a `.http` file with sample requests.
 

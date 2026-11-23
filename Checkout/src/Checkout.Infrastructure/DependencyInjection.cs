@@ -18,6 +18,7 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<CheckoutDbContext>());
         services.AddScoped<ICartRepository, CartRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IShipmentRepository, ShipmentRepository>();
         return services;
     }
 
