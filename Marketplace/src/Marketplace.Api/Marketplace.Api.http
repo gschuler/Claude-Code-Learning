@@ -1,0 +1,26 @@
+@host = http://localhost:5001
+
+# Seeded ids (see Infrastructure/Persistence/SeedData.cs)
+@techStore = a1000000-0000-0000-0000-000000000001
+@keyboard = b1000000-0000-0000-0000-000000000001
+
+### List products (8 seeded)
+GET {{host}}/products
+
+### Get a seeded product
+GET {{host}}/products/{{keyboard}}
+
+### Get a seeded seller
+GET {{host}}/sellers/{{techStore}}
+
+### Create a seller
+POST {{host}}/sellers
+Content-Type: application/json
+
+{ "name": "Acme", "email": "sales@acme.test" }
+
+### Create a product for a seeded seller
+POST {{host}}/products
+Content-Type: application/json
+
+{ "sellerId": "{{techStore}}", "name": "Webcam", "price": 249.90, "currency": "BRL", "stock": 10 }
