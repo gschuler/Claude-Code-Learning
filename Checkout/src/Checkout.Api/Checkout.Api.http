@@ -1,0 +1,30 @@
+@host = http://localhost:5002
+
+# Seeded ids (see Infrastructure/Persistence/SeedData.cs)
+@openCart = c1000000-0000-0000-0000-000000000001
+@paidOrder = d1000000-0000-0000-0000-000000000001
+@pendingOrder = d1000000-0000-0000-0000-000000000002
+
+### Seeded open cart (keyboard + 2 mice)
+GET {{host}}/carts/{{openCart}}
+
+### Add an item to it (Desk Lamp from the Marketplace seed)
+POST {{host}}/carts/{{openCart}}/items
+Content-Type: application/json
+
+{ "productId": "b1000000-0000-0000-0000-000000000006", "productName": "Desk Lamp", "unitPrice": 89.90, "quantity": 1 }
+
+### Check it out -> creates a new pending order
+POST {{host}}/carts/{{openCart}}/checkout
+
+### Seeded paid order
+GET {{host}}/orders/{{paidOrder}}
+
+### Pay the seeded pending order
+POST {{host}}/orders/{{pendingOrder}}/pay
+
+### Paying it again fails with 400
+POST {{host}}/orders/{{pendingOrder}}/pay
+
+### Start a fresh cart
+POST {{host}}/carts

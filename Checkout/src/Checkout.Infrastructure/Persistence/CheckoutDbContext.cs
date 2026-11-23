@@ -1,0 +1,18 @@
+using Checkout.Application.Abstractions;
+using Checkout.Domain.Carts;
+using Checkout.Domain.Orders;
+using Microsoft.EntityFrameworkCore;
+
+namespace Checkout.Infrastructure.Persistence;
+
+public sealed class CheckoutDbContext(DbContextOptions<CheckoutDbContext> options)
+    : DbContext(options), IUnitOfWork
+{
+    public DbSet<Cart> Carts => Set<Cart>();
+    public DbSet<Order> Orders => Set<Order>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CheckoutDbContext).Assembly);
+
+    async Task IUnitOfWork.SaveChangesAsync(CancellationToken ct) => await SaveChangesAsync(ct);
+}

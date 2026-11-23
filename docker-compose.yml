@@ -1,0 +1,22 @@
+services:
+  marketplace-api:
+    build:
+      context: ./Marketplace
+      dockerfile: src/Marketplace.Api/Dockerfile
+    ports:
+      - "5001:8080"
+    volumes:
+      - marketplace-data:/data
+
+  checkout-api:
+    build:
+      context: ./Checkout
+      dockerfile: src/Checkout.Api/Dockerfile
+    ports:
+      - "5002:8080"
+    volumes:
+      - checkout-data:/data
+
+volumes:
+  marketplace-data:
+  checkout-data:
